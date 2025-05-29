@@ -38,7 +38,7 @@ export default function ForecastList() {
     );
   }
 
-  const hourlyForecast = data.hourly.time.slice(0, 24).map((time, index) => ({
+  const hourlyForecast = data.hourly.time.slice(0, 24).map((time: string, index: number) => ({
     time: new Date(time).toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -46,6 +46,8 @@ export default function ForecastList() {
     temperature: data.hourly.temperature_2m[index],
     icon: "01d",
   }));
+
+  
 
   const dailyForecast = data.daily.time.map((date, index) => ({
     date: new Date(date).toLocaleDateString("vi-VN", {
