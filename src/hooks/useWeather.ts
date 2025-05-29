@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getWeatherByLatLng } from "@/lib/api";
+import { WeatherForecastData } from "@/types/weather";
 
 interface WeatherParams {
   latitude: number;
@@ -7,12 +8,10 @@ interface WeatherParams {
 }
 
 export const useWeather = ({ latitude, longitude }: WeatherParams) => {
-  return useQuery({
+  return useQuery<WeatherForecastData>({
     queryKey: ["weather", latitude, longitude],
     queryFn: () => getWeatherByLatLng(latitude, longitude),
     enabled: !!latitude && !!longitude, // chỉ gọi khi có tọa độ
     // staleTime: 1000 * 60 * 5, // cache 5 phút
   });
 };
-
-

@@ -5,6 +5,20 @@ import { useWeather } from "@/hooks/useWeather";
 import { Skeleton } from "@/components/ui/skeleton";
 import WeatherIcon from "@/components/weather/WeatherIcon";
 
+// ✅ Định nghĩa kiểu dữ liệu rõ ràng
+interface HourlyForecast {
+  time: string;
+  temperature: number;
+  icon: string;
+}
+
+interface DailyForecast {
+  date: string;
+  minTemp: number;
+  maxTemp: number;
+  icon: string;
+}
+
 export default function ForecastList() {
   const latitude = 21.0285; // Hà Nội
   const longitude = 105.8542;
@@ -38,33 +52,37 @@ export default function ForecastList() {
     );
   }
 
-  const hourlyForecast = data.hourly.time.slice(0, 24).map((time: string, index: number) => ({
-    time: new Date(time).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-    temperature: data.hourly.temperature_2m[index],
-    icon: "01d",
-  }));
+  // ✅ Xử lý dữ liệu giờ
+  const hourlyForecast: HourlyForecast[] = data.hourly.time
+    .slice(0, 24)
+    .map((time: string, index: number) => ({
+      time: new Date(time).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      temperature: data.hourly.temperature_2m[index],
+      icon: "01d", // có thể dùng icon thật từ API nếu có
+    }));
 
-  
-
-  const dailyForecast = data.daily.time.map((date, index) => ({
-    date: new Date(date).toLocaleDateString("vi-VN", {
-      weekday: "long",
-      day: "2-digit",
-      month: "2-digit",
-    }),
-    minTemp: data.daily.temperature_2m_min[index],
-    maxTemp: data.daily.temperature_2m_max[index],
-    icon: "01d",
-  }));
+  // ✅ Xử lý dữ liệu ngày
+  const dailyForecast: DailyForecast[] = (data.daily.time as string[]).map(
+    (date: string, index: number) => ({
+      date: new Date(date).toLocaleDateString("vi-VN", {
+        weekday: "long",
+        day: "2-digit",
+        month: "2-digit",
+      }),
+      minTemp: data.daily.temperature_2m_min[index],
+      maxTemp: data.daily.temperature_2m_max[index],
+      icon: "01d", // tương tự
+    })
+  );
 
   return (
     <div className="mt-8">
       <h2 className="text-xl font-semibold mb-2">🌙 Dự báo 24 giờ tiếp theo</h2>
       <div className="flex overflow-x-auto space-x-3 pb-2">
-        {hourlyForecast.map((hour, i) => (
+        {hourlyForecast.map((hour: HourlyForecast, i: number) => (
           <div
             key={i}
             className="min-w-[80px] bg-white dark:bg-zinc-800 p-2 rounded-xl text-center shadow"
@@ -78,14 +96,13 @@ export default function ForecastList() {
 
       <h2 className="text-xl font-semibold mt-6 mb-2">📅 Dự báo 7 ngày tới</h2>
       <ul className="space-y-2">
-        {dailyForecast.map((day, i) => (
+        {dailyForecast.map((day: DailyForecast, i: number) => (
           <li
             key={i}
             className="flex justify-between items-center bg-white dark:bg-zinc-800 p-3 rounded-xl shadow"
           >
             <span>{day.date}</span>
             <WeatherIcon />
-
             <span>
               {day.minTemp}°C - {day.maxTemp}°C
             </span>
