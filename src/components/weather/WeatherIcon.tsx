@@ -26,7 +26,7 @@ export const getHumidityIcon = (size = 24) => (
     alt="Humidity Icon"
     width={size}
     height={size}
-    className="object-contain inline-block"
+    className="object-contain inline-block dark:invert"
   />
 );
 
@@ -36,7 +36,7 @@ export const getWindIcon = (size = 24) => (
     alt="Wind Icon"
     width={size}
     height={size}
-    className="object-contain inline-block"
+    className="object-contain inline-block dark:invert"
   />
 );
 
@@ -46,7 +46,7 @@ export const getUvIcon = (size = 24) => (
     alt="UV Icon"
     width={size}
     height={size}
-    className="object-contain inline-block"
+    className="object-contain inline-block dark:invert"
   />
 );
 
@@ -65,7 +65,7 @@ const WeatherIcon: React.FC<WeatherIconProps> = ({
       alt={alt}
       width={size}
       height={size}
-      className="object-contain"
+      className="object-contain dark:invert"
     />
   );
 };

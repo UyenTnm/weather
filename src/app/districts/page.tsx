@@ -19,12 +19,10 @@ export default function DistrictsPage() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
       {districts
-
-        .filter(
+        ?.filter(
           (district: DistrictSummary) =>
             district.codename in districtCoordinates
         )
-
         .map((district: DistrictSummary) => {
           const coords = districtCoordinates[district.codename];
           return (
@@ -34,7 +32,8 @@ export default function DistrictsPage() {
               className="hover:text-blue-600 transition"
             >
               <DistrictCard
-                name={district.name}
+                codename={district.codename}
+                name={coords.name}
                 lat={coords.lat}
                 lon={coords.lon}
               />

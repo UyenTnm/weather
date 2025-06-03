@@ -4,6 +4,7 @@ import React from "react";
 import { useWeather } from "@/hooks/useWeather";
 import { Skeleton } from "@/components/ui/skeleton";
 import WeatherIcon from "@/components/weather/WeatherIcon";
+import type { WeatherForecastData } from "@/types/weather";
 
 // ✅ Định nghĩa kiểu dữ liệu rõ ràng
 interface HourlyForecast {
@@ -23,7 +24,11 @@ export default function ForecastList() {
   const latitude = 21.0285; // Hà Nội
   const longitude = 105.8542;
 
-  const { data, isLoading, isError } = useWeather({ latitude, longitude });
+  const { data, isLoading, isError } = useWeather({ latitude, longitude }) as {
+    data: WeatherForecastData | undefined;
+    isLoading: boolean;
+    isError: boolean;
+  };
 
   if (isLoading) {
     return (
@@ -80,30 +85,40 @@ export default function ForecastList() {
 
   return (
     <div className="mt-8">
-      <h2 className="text-xl font-semibold mb-2">🌙 Dự báo 24 giờ tiếp theo</h2>
-      <div className="flex overflow-x-auto space-x-3 pb-2">
-        {hourlyForecast.map((hour: HourlyForecast, i: number) => (
+      <h2 className="text-lg sm:rext-xl font-semibold mb-3 sm:mb-4 mt-6">
+        🌙 Dự báo 24 giờ tiếp theo
+      </h2>
+      <div className="flex overflow-x-auto space-x-3 pb-2 snap-x snap-mandatory">
+        {hourlyForecast.map((hour, i) => (
           <div
             key={i}
-            className="min-w-[80px] bg-white dark:bg-zinc-800 p-2 rounded-xl text-center shadow"
+            className="w-[80px] h-[120px] flex flex-col items-center justify-between bg-white dark:bg-zinc-800 p-2 rounded-xl text-center shadow "
           >
-            <div className="text-sm">{hour.time}</div>
-            <WeatherIcon />
+            <div className="text-sm h-[20px] whitespace-nowrap">
+              {hour.time}
+            </div>
+            <WeatherIcon code={hour.icon} />
             <div className="text-sm">{hour.temperature}°C</div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-semibold mt-6 mb-2">📅 Dự báo 7 ngày tới</h2>
+      <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 mt-6">
+        📅 Dự báo 7 ngày tới
+      </h2>
       <ul className="space-y-2">
         {dailyForecast.map((day: DailyForecast, i: number) => (
           <li
             key={i}
-            className="flex justify-between items-center bg-white dark:bg-zinc-800 p-3 rounded-xl shadow"
+            className="grid grid-cols-[1fr_auto_1fr] items-center bg-white dark:bg-zinc-800 px-3 py-2 sm:py3 rounded-xl shadow text-sm sm:text-base"
           >
-            <span>{day.date}</span>
-            <WeatherIcon />
-            <span>
+            <span className="text-left truncate max-w-[100px] sm:max-w-none">
+              {day.date}
+            </span>
+            <div className="flex justify-center">
+              <WeatherIcon code={day.icon} />
+            </div>
+            <span className="text-right">
               {day.minTemp}°C - {day.maxTemp}°C
             </span>
           </li>

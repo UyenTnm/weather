@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
 
@@ -112,6 +115,31 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+.bg-sunny {
+  background-color: #ffeaa7; /* vàng nắng */
+}
+
+.bg-cloudy {
+  background-color: #dfe6e9; /* xám mây */
+}
+
+.bg-rainy {
+  background-color: #74b9ff; /* xanh mưa */
+}
+
+.bg-default {
+  background-color: #f0f0f0;
+}
+
+html,
+body {
+  overflow-x: hidden; /* Ngăn tràn ngang */
+  max-width: 100vw; /* Không cho rộng hơn màn hình */
+}
+
+html {
+  transition: background 0.3s ease, color 0.3s ease;
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;

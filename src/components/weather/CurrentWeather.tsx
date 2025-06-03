@@ -34,19 +34,21 @@ export default function CurrentWeather({ latitude, longitude }: Props) {
   const current = data.current_weather;
   const currentTime = current.time;
   const hourlyTimes = data.hourly.time;
+  const humidities = data.hourly.relative_humidity_2m;
   const uvIndices = data.hourly.uv_index;
+
   const index = hourlyTimes.findIndex((t: string) => t === currentTime);
 
+  const humidity = index !== -1 ? humidities[index] : null;
   const uvIndex = index !== -1 ? uvIndices[index] : null;
 
   // console.log("Weather data:", data);
   return (
     <WeatherCard
       temperature={current.temperature}
-      humidity={current.relative_humidity_2m}
+      humidity={humidity ?? 0}
       windSpeed={current.windspeed}
-      // uvIndex={current.uv_index}
-      uvIndex={uvIndex}
+      uvIndex={uvIndex ?? 0}
       weatherCode={current.weathercode}
     />
   );

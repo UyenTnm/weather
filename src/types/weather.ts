@@ -11,10 +11,12 @@ export interface WeatherForecastData {
   hourly: {
     time: string[];
     temperature_2m: number[];
+    weathercode?: number[];
   };
   daily: {
     time: string[];
     tempurature_2m_min: number[];
     temperature_2m_max: number[];
+    weathercode?: number[];
   };
 }
