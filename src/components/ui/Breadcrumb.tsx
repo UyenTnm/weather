@@ -1,27 +1,40 @@
-// components/Breadcrumb.tsx
 import Link from "next/link";
 
 type BreadcrumbItem = {
   label: string;
-  href?: string;
+  href: string;
 };
 
-export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
+type BreadcrumbProps = {
+  items: BreadcrumbItem[];
+};
+
+export default function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <nav aria-label="breadcrumb" className="mb-4">
-      <ol className="flex space-x-2 text-gray-600">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center">
-            {index > 0 && <span className="mx-2">/</span>}
-            {item.href ? (
-              <Link href={item.href} className="hover:underline text-blue-600">
-                {item.label}
-              </Link>
-            ) : (
-              <span className="font-semibold">{item.label}</span>
-            )}
-          </li>
-        ))}
+    <nav className="text-sm text-gray-500 mb-4">
+      <ol className="list-none p-0 inline-flex">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={index} className="flex items-center">
+              {!isLast ? (
+                <>
+                  <Link
+                    href={item.href}
+                    className="hover:text-blue-500 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                  <span className="mx-2">/</span>
+                </>
+              ) : (
+                <span className="font-semibold text-blue-600">
+                  {item.label}
+                </span>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );

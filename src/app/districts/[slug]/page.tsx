@@ -34,3 +34,9 @@ export default function DistrictDetailPage({ params }: Props) {
     </div>
   );
 }
+
+export async function generateStaticParams() {
+  return Object.keys(districtCoordinates).map((slug) => ({
+    slug,
+  }));
+}
