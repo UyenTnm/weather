@@ -205,5 +205,10 @@ export const districtCoordinates: Record<
     aqi: 79,
   },
 };
+export const districtsMap = Object.fromEntries(
+  Object.entries(districtCoordinates).map(([slug, data]) => [slug, data.name])
+);
 
 // export default districtCoordinates.tsx;
+// export default districtCoordinates.tsx;
+
