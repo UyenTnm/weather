@@ -2,7 +2,7 @@
 
 import { notFound } from "next/navigation";
 import { districtCoordinates } from "@/lib/districtCoordinates";
-import { useWeather } from "@/hooks/useWeather"; // giữ nguyên nếu dùng trong client
+// import { useWeather } from "@/hooks/useWeather"; // giữ nguyên nếu dùng trong client
 import WeatherSection from "@/components/weather/WeatherSection"; // sẽ tạo bên dưới
 
 type Props = {

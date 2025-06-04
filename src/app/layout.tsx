@@ -5,7 +5,7 @@ import Search from "@/app/search/SearchForm";
 // import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ThemeWrapper from "@/components/theme/ThemeWrapper";
 import ToggleTheme from "@/components/theme/ToggleTheme";
-import Breadcrumb from "@/components/ui/Breadcrumb";
+// import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const metadata = {
   Title: "Trang web dự báo thời tiết",
@@ -28,13 +28,15 @@ export default function RootLayout({
           {/* Navigation */}
           <nav className="bg-white w-full shadow-md dark:bg-gray-800 transition-colors duration-300">
             <div className="max-w-6xl mx-auto px-4">
-              <div className="flex justify-between items-center h-16">
-                <div className="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
+              <div className="flex justify-between items-center h-16 gap-4">
+                <div className="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300 whitespace-nowrap">
                   Thời tiết
                 </div>
                 {/* Search Form */}
-                <Search />
-                <ul className="flex space-x-6 font-medium">
+                <div className="flex-1 hidden md:block">
+                  <Search />
+                </div>
+                <ul className="flex items-center space-x-6 font-medium whitespace-nowrap">
                   <li>
                     <NavLink
                       href="/"
@@ -57,8 +59,6 @@ export default function RootLayout({
                   <li>
                     <ToggleTheme />
                   </li>
-
-                  {/*  */}
                 </ul>
               </div>
             </div>

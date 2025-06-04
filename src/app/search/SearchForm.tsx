@@ -1,11 +1,21 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SearchFrom() {
   const [query, setQuery] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+
+    // Redirect tới search page có query
+    router.push(`/search?keyword=${encodeURIComponent(query.trim())}`);
+  };
 
   return (
-    <form className="flex items-center space-x-2">
+    <form className="flex items-center space-x-2 h-10" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Tìm kiếm quận/ huyện"

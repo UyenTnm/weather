@@ -51,8 +51,35 @@ const mapWeatherCodeToDescription = (code: number): string => {
     case 63:
       return "Mưa vừa";
     case 65:
-      return "Mưa nặng";
-    // ... các trường hợp khác
+      return "Mưa to";
+    case 66:
+      return "Mưa đóng băng nhẹ";
+    case 67:
+      return "Mưa đóng băng dày";
+    case 71:
+      return "Tuyết rơi nhẹ";
+    case 73:
+      return "Tuyết vừa";
+    case 75:
+      return "Tuyết rơi dày";
+    case 77:
+      return "Tuyết nhỏ lăn";
+    case 80:
+      return "Mưa rào nhẹ";
+    case 81:
+      return "Mưa rào vừa";
+    case 82:
+      return "Mưa rào lớn";
+    case 85:
+      return "Mưa tuyết nhẹ";
+    case 86:
+      return "Mưa tuyết nặng";
+    case 95:
+      return "Giông";
+    case 96:
+      return "Giông kèm mưa đá nhẹ";
+    case 99:
+      return "Giông kèm mưa đá nặng";
     default:
       return "Không rõ";
   }
